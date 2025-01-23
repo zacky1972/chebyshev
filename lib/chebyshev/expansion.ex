@@ -1,7 +1,9 @@
 defmodule Chebyshev.Expansion do
+  @spec scaled_sine(number(), pos_integer()) :: float()
 
-  @spec scaled_sine(number()) :: float()
-  def scaled_sine(x) when is_number(x) and -1.0 <= x and x <= 1.0 do
+  def scaled_sine(x, n \\ 8)
+
+  def scaled_sine(x, n) when is_number(x) and -1.0 <= x and x <= 1.0 do
     [
       1.133648177811748e+000,
       -1.380717765871921e-001,
@@ -12,25 +14,26 @@ defmodule Chebyshev.Expansion do
       1.329702838448965e-011,
       -3.927499587179669e-014
     ]
+    |> Enum.take(n)
     |> Enum.with_index()
     |> Enum.map(fn {f, n} -> {f, 2 * n + 1} end)
     |> Enum.map(fn {f, n} -> f * Chebyshev.Polynominal.of_1st_kind(n).(x) end)
     |> Enum.sum()
   end
 
-  def scaled_sine(x) when is_number(x) and 1.0 < x and x <= 2.0 do
-    scaled_sine(2.0 - x)
+  def scaled_sine(x, n) when is_number(x) and 1.0 < x and x <= 2.0 do
+    scaled_sine(2.0 - x, n)
   end
 
-  def scaled_sine(x) when is_number(x) and -2.0 <= x and x < -1.0 do
-    scaled_sine(-2.0 - x)
+  def scaled_sine(x, n) when is_number(x) and -2.0 <= x and x < -1.0 do
+    scaled_sine(-2.0 - x, n)
   end
 
-  def scaled_sine(x) when is_number(x) and 2.0 < x do
-    scaled_sine(x - 4.0)
+  def scaled_sine(x, n) when is_number(x) and 2.0 < x do
+    scaled_sine(x - 4.0, n)
   end
 
-  def scaled_sine(x) when is_number(x) and x < -2.0 do
-    scaled_sine(x + 4.0)
+  def scaled_sine(x, n) when is_number(x) and x < -2.0 do
+    scaled_sine(x + 4.0, n)
   end
 end
