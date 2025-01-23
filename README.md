@@ -1,21 +1,26 @@
 # Chebyshev
 
-**TODO: Add description**
+Chebyshev series expansion of sine function.
 
-## Installation
+## Error Evaluation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `chebyshev` to your list of dependencies in `mix.exs`:
+Evaluation of Error in the interval -1 to 1 for Chebyshev series expansion of sine function is as follows:
 
-```elixir
-def deps do
-  [
-    {:chebyshev, "~> 0.1.0"}
-  ]
-end
+`{Maximum error, nth order approximation}`
+
+```zsh
+mix run -r evaluation.exs 
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/chebyshev>.
-
+```elixir
+[
+  {0.14043432915303722, 1},
+  {0.004546009673330964, 2},
+  {6.823491231261469e-5, 3},
+  {5.92274409849658e-7, 4},
+  {3.3508459063025242e-9, 5},
+  {1.3334944259923986e-11, 6},
+  {3.9468428525424315e-14, 7},
+  {4.440892098500626e-16, 8}
+]
+```
